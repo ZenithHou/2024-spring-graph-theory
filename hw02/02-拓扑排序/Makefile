@@ -1,7 +1,18 @@
-main:main.o
-	g++ $< -o $@ -std=c++11
+CXX := g++
+CXXFLAGS := -std=c++11 -Wall -Wextra -pedantic
 
-%.o:
+TARGET := main
+OBJS := main.o
+
+all: $(TARGET)
+
+$(TARGET): $(OBJS)
+	$(CXX) $(CXXFLAGS) -o $@ $^
+
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
-	rm *.o main
+	rm -f *.o $(TARGET)
+
+.PHONY: all clean
